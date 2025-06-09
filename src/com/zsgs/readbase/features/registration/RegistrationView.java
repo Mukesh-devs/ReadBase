@@ -34,8 +34,15 @@ public class RegistrationView extends Util {
     }
 
     private String getMobileNo() {
-        System.out.println("Enter the MobileNo : ");
-        return scanner.nextLine();
+        String mobileNo;
+        do {
+            System.out.println("Enter the Mobile Number : ");
+            mobileNo = scanner.nextLine();
+            if ( model.isValidMobile(mobileNo)) {
+                return mobileNo;
+            }
+        }
+        while (true);
     }
 
     private String getUserName() {
@@ -58,9 +65,9 @@ public class RegistrationView extends Util {
                 if ( confirmPassword.equals(registrationInfo.getPassword())) {
                     return confirmPassword;
                 }
-            }
-            else {
-                printError("Password does not Match..");
+                else {
+                    printError("Password does not Match..");
+                }
             }
         }
         while (true);
@@ -77,10 +84,8 @@ public class RegistrationView extends Util {
         } while (true);
     }
 
-
-
     void printError(String error) {
-        System.out.print("Error : " + error);
+        System.out.print(RED + "Error : " + error + RESET + "\n");
     }
 
     private String getLastName() {
@@ -91,6 +96,7 @@ public class RegistrationView extends Util {
             if ( lastname.length() >= 2 && lastname.length() <= 50) {
                 return lastname;
             }
+            printError("LastName must be in lenght of 2 to 50.");
         } while (true);
     }
 
@@ -102,10 +108,23 @@ public class RegistrationView extends Util {
             if ( firstname.length() <= 50 && firstname.length() >= 2) {
                 return firstname;
             }
+            printError("FirstName must be in length of 2 to 50.");
         }
         while (true);
     }
-
+    void userLogin() {
+        System.out.println("1. proceed Login");
+        System.out.println("2. Exit");
+        switch (scanner.nextInt()) {
+            case 1 -> {
+                System.out.println("login success");
+            }
+            case 2 -> {
+                System.out.println( RED + "Thankyou.." + RESET);
+                System.exit(0);
+            }
+        }
+    }
 
 //    public void proceedLogin() {
 //        System.out.println("bye");

@@ -29,6 +29,7 @@ public class RegistrationModel {
         else {
             System.out.println("Registered Successfully");
             ReadBaseDb.getInstance().setRegistrationInfo(registrationInfo);
+            view.userLogin();
         }
     }
 
@@ -41,20 +42,35 @@ public class RegistrationModel {
         boolean isAlpha = false;
         for (int i = 0; i < pass.length(); i++ ) {
             if ( Character.isDigit(pass.charAt(i))) {
-                isAlpha = true;
+                isNumeric = true;
+                continue;
             }
             if ( Character.isAlphabetic(pass.charAt(i))) {
-                isNumeric = true;
+                isAlpha = true;
             }
         }
         if ( !isAlpha || !isNumeric ) {
             view.printError("Password should contains Alphanumeric characters..");
-            return false;
-        } else if ( pass.length() < 8) {
-            view.printError("Password must be length of 8");
+            if ( pass.length() < 8) {
+                view.printError("Password must be length of 8");
+                return false;
+            }
             return false;
         }
         return true;
     }
 
+    public boolean isValidMobile(String mobileNo) {
+        if ( mobileNo.length() != 10) {
+            view.printError("Mobile Number must in 10 digits");
+            return false;
+        }
+        for ( int i = 0; i < mobileNo.length(); i++ ) {
+            if ( Character.isAlphabetic(mobileNo.charAt(i))) {
+                view.printError("Mobile Number only be numbers");
+                return false;
+            }
+        }
+        return true;
+    }
 }
