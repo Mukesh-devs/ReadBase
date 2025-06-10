@@ -73,4 +73,13 @@ public class RegistrationModel {
         }
         return true;
     }
+
+    void validateLogin(String username, String password) {
+        if ( ReadBaseDb.getInstance().validateLogin(username,password)) {
+            view.successLogin(username);
+        }
+        else {
+            view.invalidLogin();
+        }
+    }
 }

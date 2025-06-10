@@ -1,5 +1,6 @@
 package com.zsgs.readbase.repository.db;
 
+import com.zsgs.readbase.features.registration.RegistrationView;
 import com.zsgs.readbase.repository.dto.RegistrationInfo;
 
 public class ReadBaseDb {
@@ -22,5 +23,14 @@ public class ReadBaseDb {
 
     public void setRegistrationInfo(RegistrationInfo registrationInfo) {
         this.registrationInfo = registrationInfo;
+    }
+
+    public boolean validateLogin(String username, String password) {
+        if ( registrationInfo.getUserName().equals(username) && registrationInfo.getPassword().equals(password)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

@@ -15,6 +15,8 @@ public class RegistrationView extends Util {
     }
 
     public void init() {
+        System.out.println("Welcome to ReadBase System.");
+
         model.init();
         System.out.println("Registration View " + model);
     }
@@ -32,6 +34,21 @@ public class RegistrationView extends Util {
         ReadBaseDb.getInstance().setRegistrationInfo(registrationInfo);
         model.registerUser(registrationInfo);
     }
+    void proceedLogin() {
+        String username = getUserName();
+        String password = getPassword();
+        model.validateLogin(username,password);
+    }
+
+    void successLogin(String username) {
+        System.out.println("Login successfully..");
+
+    }
+
+    void invalidLogin() {
+        printError("Enter correct Login Credintials..");
+        proceedLogin();
+    }
 
     private String getMobileNo() {
         String mobileNo;
@@ -48,7 +65,8 @@ public class RegistrationView extends Util {
     private String getUserName() {
 
         System.out.println("Enter the UserName : ");
-        return scanner.nextLine();
+        String username = scanner.nextLine();
+        return username;
     }
 
     private String getEmailId() {
@@ -103,7 +121,7 @@ public class RegistrationView extends Util {
     private String getFirstName() {
         String firstname;
         do {
-            System.out.println("Enter the FirstName : ");
+            System.out.println(RED + "Enter the FirstName : " + RESET);
             firstname = scanner.nextLine();
             if ( firstname.length() <= 50 && firstname.length() >= 2) {
                 return firstname;
@@ -113,13 +131,17 @@ public class RegistrationView extends Util {
         while (true);
     }
     void userLogin() {
-        System.out.println("1. proceed Login");
-        System.out.println("2. Exit");
-        switch (scanner.nextInt()) {
+        System.out.println("1. proceed Registration");
+        System.out.println("2. proceed Login");
+        System.out.println("3. Exit");
+        switch (Integer.parseInt(scanner.nextLine())) {
             case 1 -> {
                 System.out.println("login success");
             }
             case 2 -> {
+                proceedLogin();
+            }
+            case 3 -> {
                 System.out.println( RED + "Thankyou.." + RESET);
                 System.exit(0);
             }
